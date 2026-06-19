@@ -50,7 +50,7 @@ SELECT
     END AS tipo_restriccion,
     uc.status,
     uc.delete_rule,
-    uc.search_condition
+    uc.search_condition_vc AS condicion_check
 FROM user_constraints uc
 WHERE uc.table_name IN (
     'ASISTENTE',
