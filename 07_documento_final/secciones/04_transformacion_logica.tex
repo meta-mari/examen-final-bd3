@@ -1,0 +1,7 @@
+\section{Transformación al modelo relacional}
+
+La transformación del modelo conceptual al modelo relacional siguió reglas estándar de diseño de bases de datos. Cada entidad fuerte se transformó en una tabla, los identificadores se transformaron en claves primarias y las relaciones uno a muchos se materializaron mediante claves foráneas en el lado dependiente.
+
+Las relaciones opcionales se representaron mediante columnas que aceptan valores nulos, mientras que las relaciones obligatorias se implementaron con claves foráneas \texttt{NOT NULL}. Las reglas de dominio simples se implementaron mediante restricciones \texttt{CHECK}, y las reglas operacionales se implementaron mediante triggers y procedimientos almacenados en Oracle 19c.
+
+El resultado de la transformación produjo quince tablas relacionales, organizadas en los bloques de registro, atención clínica, finanzas e inventario.

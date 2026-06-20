@@ -1,0 +1,159 @@
+\documentclass[man,12pt,floatsintext]{apa7}
+
+% =========================================================
+% Idioma y fuentes
+% =========================================================
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{fontspec}
+
+\setmainfont{IBM Plex Serif}
+\setsansfont{IBM Plex Sans}
+\setmonofont{IBM Plex Mono}
+
+% =========================================================
+% Paquetes
+% =========================================================
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\usepackage{pdflscape}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xurl}
+
+% Corrige warning de fancyhdr en apa7
+\setlength{\headheight}{16pt}
+
+% Mejora cortes de línea en tablas con rutas, scripts y texto técnico
+\setlength{\emergencystretch}{3em}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+
+% =========================================================
+% Bibliografía APA 7
+% =========================================================
+\usepackage[
+  backend=biber,
+  style=apa,
+  sorting=nyt
+]{biblatex}
+
+\addbibresource{referencias.bib}
+
+% =========================================================
+% Metadatos mínimos requeridos por apa7
+% =========================================================
+\title{Diseño, transformación e implementación de una base de datos en Oracle 19c para la gestión odontológica}
+\shorttitle{Base de datos Oracle 19c para gestión odontológica}
+\leftheader{Ávila, Peñaranda y Limachi}
+
+% =========================================================
+% Rutas de imágenes
+% =========================================================
+\graphicspath{
+  {figuras/}
+  {../01_conceptual_chen/}
+  {../03_crows_foot/}
+  {../06_evidencias/}
+}
+
+% =========================================================
+% Configuración de código
+% =========================================================
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  breakatwhitespace=false,
+  frame=single,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  tabsize=2
+}
+
+% =========================================================
+% Comandos de figuras
+% =========================================================
+\newcommand{\figuranormal}[3]{%
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.78\textheight,keepaspectratio]{#1}
+\caption{#2}
+\label{#3}
+\end{figure}
+}
+
+\newcommand{\figuraapaisada}[3]{%
+\clearpage
+\begin{landscape}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\linewidth,height=0.82\textheight,keepaspectratio]{#1}
+\caption{#2}
+\label{#3}
+\end{figure}
+\end{landscape}
+\clearpage
+}
+
+% =========================================================
+% Documento
+% =========================================================
+\begin{document}
+\nocite{*}
+
+\thispagestyle{empty}
+\begin{center}
+  {\Large Universidad Mayor Real y Pontificia de San Francisco\\
+    Xavier de Chuquisaca\par}
+
+  \vspace{0.5cm}
+  {\large Facultad de Ciencias y Tecnología\par}
+  {\large Ingeniería en Ciencias de la Computación\par}
+
+  \vspace{1.2cm}
+  {\large SIS306 - Examen Final\par}
+  {\large SIS306 - Bases de Datos III\par}
+
+  \vspace{1.2cm}
+  {\large Docente: Ing. Edgar T. Espinoza Rodríguez\par}
+
+  \vspace{1.2cm}
+  {\large Estudiantes:\par}
+  {\large Ávila Serrano Christian Ángel\par}
+  {\large Peñaranda Villarroel Hernán Isaac\par}
+  {\large Limachi Villarroel Alan Nicolás\par}
+
+  \vspace{1.2cm}
+  {\large Fecha de entrega: Martes, 23 de junio de 2026\par}
+
+  \vfill
+  {\large Diseño, transformación e implementación de una base de datos en Oracle 19c para la gestión odontológica\par}
+\end{center}
+
+\clearpage
+\setcounter{page}{1}
+
+\input{secciones/01_introduccion}
+\input{secciones/02_requisitos}
+\input{secciones/03_modelo_conceptual}
+\input{secciones/04_transformacion_logica}
+\input{secciones/05_modelo_logico}
+\input{secciones/06_diseno_fisico_oracle}
+\input{secciones/07_diccionario_datos}
+\input{secciones/08_validaciones}
+\input{secciones/09_comparacion_mysql_oracle}
+\input{secciones/10_fuentes_trabajo}
+\input{secciones/11_conclusiones}
+
+\appendix
+\input{secciones/12_anexo_scripts}
+
+\printbibliography
+
+\end{document}

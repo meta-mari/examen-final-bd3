@@ -1,0 +1,29 @@
+\section{Diseño físico en Oracle 19c}
+
+La implementación física se realizó en Oracle Database 19c dentro del schema \texttt{FARMACIAS\_BD3}. En Oracle, el schema está asociado al usuario propietario de los objetos, por lo que se creó un usuario específico para contener las tablas, vistas, triggers y procedimientos del proyecto.
+
+\subsection{Scripts implementados}
+
+\begin{table}[H]
+\caption{Scripts físicos Oracle 19c}
+\centering
+\small
+\begin{tabularx}{\textwidth}{L{0.36\textwidth}Y}
+\toprule
+\textbf{Script} & \textbf{Propósito} \\
+\midrule
+\path{00_admin_crear_schema.sql} & Crea el usuario/schema y asigna permisos. \\
+\path{01_limpieza_esquema.sql} & Limpia objetos previos para permitir reejecución. \\
+\path{02_tablas.sql} & Crea tablas, claves primarias, claves foráneas y restricciones. \\
+\path{03_vistas.sql} & Crea la vista de historial clínico. \\
+\path{04_triggers.sql} & Crea triggers de inventario y pagos. \\
+\path{05_procedimientos.sql} & Define el procedimiento almacenado formal. \\
+\path{05_procedimientos_dbeaver.sql} & Variante compatible con DBeaver. \\
+\path{06_datos_prueba.sql} & Carga datos de prueba. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Objetos programables}
+
+Se implementó la vista \texttt{VW\_HISTORIAL\_CLINICO}, el trigger \texttt{TRG\_ACTUALIZAR\_STOCK\_COMPRA}, el trigger \texttt{TRG\_AUDITAR\_PLAN\_PAGO} y el procedimiento almacenado \texttt{SP\_REGISTRAR\_PAGO}. Estos objetos permiten centralizar reglas de consulta, inventario y pagos directamente en el motor de base de datos.

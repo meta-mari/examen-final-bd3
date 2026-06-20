@@ -1,0 +1,27 @@
+\section{Comparación MySQL/Laravel vs Oracle 19c}
+
+La tesis base documenta un sistema web desarrollado con Laravel, MySQL y arquitectura MVC. En dicho enfoque, la base de datos funciona como repositorio persistente para una aplicación web. En la transformación realizada en este proyecto, Oracle 19c cumple un rol más estructural, porque concentra restricciones, reglas de negocio y objetos programables dentro del motor de base de datos.
+
+\begin{table}[H]
+\caption{Comparación entre el enfoque MySQL/Laravel y Oracle 19c}
+\centering
+\small
+\begin{tabularx}{\textwidth}{L{0.24\textwidth}Y Y}
+\toprule
+\textbf{Criterio} & \textbf{MySQL/Laravel} & \textbf{Oracle 19c} \\
+\midrule
+Enfoque & Sistema web completo. & Base de datos documentada y validada. \\
+Arquitectura & MVC con Laravel. & Modelo relacional con SQL y PL/SQL. \\
+Identificadores & Enteros autoincrementales o equivalentes. & \path{NUMBER GENERATED ALWAYS AS IDENTITY}. \\
+Texto & \path{VARCHAR}. & \path{VARCHAR2}. \\
+Fechas & \path{DATE}, \path{DATETIME} y \path{TIMESTAMP}. & \path{DATE}, \path{TIMESTAMP}, \path{SYSDATE} y \path{SYSTIMESTAMP}. \\
+Montos & \path{DECIMAL}. & \path{NUMBER(10,2)}. \\
+Reglas de negocio & Principalmente desde aplicación y base de datos. & Restricciones, triggers y procedimientos en el motor. \\
+Inventario & Lógica funcional del sistema. & Trigger de actualización automática de stock. \\
+Pagos & Módulo de pagos. & Procedimiento almacenado y control de saldo. \\
+Evidencia & Interfaces y funcionamiento del sistema. & Scripts, validaciones y catálogo Oracle. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+La transformación no consiste únicamente en cambiar tipos de datos. También formaliza reglas de integridad, separa responsabilidades y permite validar el diseño desde el propio motor Oracle.

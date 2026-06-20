@@ -1,0 +1,9 @@
+\section{Conclusiones}
+
+Se diseñó e implementó una base de datos relacional para procesos odontológicos, cubriendo registro de pacientes, citas, odontogramas, tratamientos, pagos, compras e inventario.
+
+El modelo conceptual Chen permitió representar el dominio sin depender de un motor físico. La transformación relacional permitió derivar tablas, claves y relaciones. El modelo lógico Crow's Foot facilitó la visualización de la estructura relacional, mientras que Oracle Database 19c permitió implementar el diseño físico con restricciones, vista, triggers y procedimiento almacenado.
+
+Las validaciones realizadas demostraron que los objetos fueron creados correctamente y que las reglas implementadas funcionan. En particular, se verificó la actualización de inventario al registrar compras y la actualización de saldo al registrar pagos mediante el procedimiento \texttt{SP\_REGISTRAR\_PAGO}.
+
+Finalmente, la comparación con el enfoque MySQL/Laravel descrito en la tesis base permitió evidenciar que Oracle 19c ofrece una implementación más centrada en reglas del motor, integridad relacional explícita y validación técnica mediante el catálogo de base de datos.

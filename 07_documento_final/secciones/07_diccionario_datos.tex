@@ -1,0 +1,19 @@
+\section{Diccionario de datos}
+
+El diccionario de datos completo se encuentra en el archivo \texttt{08\_diccionario\_datos/01\_diccionario\_datos.md}. Este diccionario documenta cada tabla, campo, tipo de dato, nulabilidad, clave y descripción funcional.
+
+Para evidenciar que el diccionario corresponde al esquema real, se ejecutó una consulta técnica sobre el catálogo de Oracle mediante \texttt{USER\_TAB\_COLUMNS}, \texttt{USER\_CONSTRAINTS} y \texttt{USER\_CONS\_COLUMNS}. Esta validación permitió contrastar columnas, tipos de datos, restricciones y relaciones de claves foráneas.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{15_diccionario_tecnico_columnas.png}
+\caption{Extracción técnica de columnas desde Oracle.}
+\label{fig:diccionario-columnas}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{16_diccionario_tecnico_relaciones.png}
+\caption{Extracción técnica de relaciones desde Oracle.}
+\label{fig:diccionario-relaciones}
+\end{figure}
