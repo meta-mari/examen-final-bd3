@@ -1,10 +1,57 @@
+\section{Objetivos}
+
+\subsection{Objetivo general}
+
+Diseñar, transformar, implementar y validar una base de datos relacional en Oracle Database 19c para la gestión de procesos odontológicos, tomando como referencia documental la tesis del sistema web LALYSDENT desarrollado con Laravel y MySQL.
+
+\subsection{Objetivos específicos}
+
+Identificar las entidades, atributos, relaciones, cardinalidades y restricciones del dominio odontológico documentado en la tesis base.
+
+Elaborar el modelo conceptual en notación Chen usando diagrams.net.
+
+Transformar el modelo conceptual al modelo relacional, definiendo tablas, claves primarias, claves foráneas, restricciones de dominio y relaciones opcionales u obligatorias.
+
+Construir el modelo lógico en notación Crow's Foot mediante ER/Studio 2003.
+
+Implementar el diseño físico en Oracle Database 19c, usando SQL y PL/SQL.
+
+Crear un diccionario de datos completo y contrastarlo con el catálogo técnico de Oracle.
+
+Comparar el enfoque MySQL/Laravel descrito en la tesis base con la transformación realizada hacia Oracle 19c.
+
+Validar la base de datos mediante datos de prueba, consultas de control, triggers y procedimiento almacenado.
+
+\section{Herramientas utilizadas}
+
+\begin{table}[H]
+\caption{Herramientas utilizadas en el proyecto}
+\centering
+\small
+\begin{tabularx}{\textwidth}{L{0.28\textwidth}Y}
+\toprule
+\textbf{Herramienta} & \textbf{Uso en el proyecto} \\
+\midrule
+diagrams.net / Draw.io & Elaboración del modelo conceptual en notación Chen. \\
+ER/Studio 2003 & Elaboración del modelo lógico relacional en notación Crow's Foot. \\
+Oracle Database 19c & Motor de base de datos usado para la implementación física. \\
+Docker & Ejecución de Oracle 19c en contenedor. \\
+DBeaver & Ejecución de scripts SQL/PLSQL y validación de objetos. \\
+VSCodium & Edición del proyecto, scripts y documento final. \\
+Konsole con zsh & Ejecución de comandos, Git, compilación LaTeX y organización del repositorio. \\
+LuaLaTeX + Biber & Compilación del informe final con formato APA 7. \\
+Git & Control de versiones del proyecto. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 \section{Análisis de requisitos}
 
-\subsection{Alcance del proyecto}
+\subsection{Alcance funcional tomado de la tesis base}
 
-El proyecto se concentra en la base de datos como producto principal del examen final. Aunque el sistema puede contar con un frontend, la documentación se limita al diseño, implementación y validación de la base de datos.
+La tesis base desarrolla un sistema de información web para administrar procesos de registro, atención, inventario y finanzas del consultorio odontológico LALYSDENT. Dicho sistema incluye módulos de registro de pacientes, gestión de citas, historias clínicas con odontograma, administración de tratamientos, control de suministros e inventario odontológico, pagos de pacientes y reportes consolidados \parencite{tesisbase,calvocobos2025web}.
 
-El alcance incluye análisis de requisitos, modelo conceptual, transformación relacional, modelo lógico, diseño físico, diccionario de datos, validaciones funcionales y comparación con el enfoque MySQL/Laravel documentado en la tesis base.
+En este examen final no se documenta el frontend ni la arquitectura completa de la aplicación web. El alcance se limita a la base de datos: diseño conceptual, transformación relacional, modelo lógico, implementación física, diccionario de datos, validación y comparación técnica.
 
 \subsection{Entidades principales}
 
@@ -12,4 +59,15 @@ A partir del dominio se identificaron las siguientes entidades: asistente, folde
 
 \subsection{Procesos cubiertos}
 
-La base de datos cubre cuatro procesos principales: registro y citas, atención odontológica, finanzas y pagos, y compras e inventario.
+La base de datos cubre cuatro procesos principales:
+
+\begin{itemize}
+  \item Registro y citas: pacientes, carpetas clínicas, doctores, asistentes y citas.
+  \item Atención odontológica: odontogramas, detalle por pieza dental y tratamientos.
+  \item Finanzas y pagos: planes de pago y pagos registrados.
+  \item Compras e inventario: proveedores, suministros, compras, detalle de compra y stock.
+\end{itemize}
+
+\subsection{Supuestos de transformación}
+
+No se dispuso de un DDL MySQL original completo de la tesis. Por ello, la comparación y transformación se realizaron a partir de la evidencia documental de la tesis y de los módulos funcionales descritos. La transformación no afirma una equivalencia sentencia por sentencia con un script MySQL original, sino una conversión técnica documentada del modelo de datos hacia Oracle 19c.

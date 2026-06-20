@@ -1,27 +1,123 @@
-\section{Comparación MySQL/Laravel vs Oracle 19c}
+\section{Conversión del enfoque MySQL/Laravel de la tesis a Oracle 19c}
 
-La tesis base documenta un sistema web desarrollado con Laravel, MySQL y arquitectura MVC. En dicho enfoque, la base de datos funciona como repositorio persistente para una aplicación web. En la transformación realizada en este proyecto, Oracle 19c cumple un rol más estructural, porque concentra restricciones, reglas de negocio y objetos programables dentro del motor de base de datos.
+\subsection{Punto de partida documental}
+
+La tesis base plantea un sistema web para el consultorio odontológico LALYSDENT. El sistema fue desarrollado con Laravel 11, Jetstream, Livewire, Tailwind CSS, JQuery y MySQL, bajo arquitectura MVC. Su alcance funcional incluye registro de pacientes, citas, historias clínicas, odontograma, tratamientos, inventario, pagos y reportes consolidados \parencite{tesisbase,calvocobos2025web}.
+
+La conversión realizada en este proyecto toma ese dominio como referencia, pero cambia el foco: en lugar de documentar la aplicación web, se documenta la base de datos como producto principal. Por ello, el resultado no es una migración automática de un dump MySQL, sino una transformación técnica del diseño de datos hacia Oracle Database 19c.
+
+\subsection{Diferencia de enfoque}
+
+En el enfoque Laravel/MySQL, MySQL actúa como repositorio relacional para una aplicación web cuya lógica se distribuye entre modelos, controladores, vistas, componentes Livewire y validaciones del framework. En la transformación a Oracle 19c, varias reglas críticas se expresan directamente dentro del motor mediante restricciones, triggers, vista y procedimiento almacenado.
 
 \begin{table}[H]
-\caption{Comparación entre el enfoque MySQL/Laravel y Oracle 19c}
+\caption{Cambio de enfoque entre MySQL/Laravel y Oracle 19c}
 \centering
 \small
-\begin{tabularx}{\textwidth}{L{0.24\textwidth}Y Y}
+\begin{tabularx}{\textwidth}{L{0.25\textwidth}Y Y}
 \toprule
-\textbf{Criterio} & \textbf{MySQL/Laravel} & \textbf{Oracle 19c} \\
+\textbf{Aspecto} & \textbf{MySQL/Laravel en la tesis} & \textbf{Oracle 19c en este proyecto} \\
 \midrule
-Enfoque & Sistema web completo. & Base de datos documentada y validada. \\
-Arquitectura & MVC con Laravel. & Modelo relacional con SQL y PL/SQL. \\
-Identificadores & Enteros autoincrementales o equivalentes. & \path{NUMBER GENERATED ALWAYS AS IDENTITY}. \\
-Texto & \path{VARCHAR}. & \path{VARCHAR2}. \\
-Fechas & \path{DATE}, \path{DATETIME} y \path{TIMESTAMP}. & \path{DATE}, \path{TIMESTAMP}, \path{SYSDATE} y \path{SYSTIMESTAMP}. \\
-Montos & \path{DECIMAL}. & \path{NUMBER(10,2)}. \\
-Reglas de negocio & Principalmente desde aplicación y base de datos. & Restricciones, triggers y procedimientos en el motor. \\
-Inventario & Lógica funcional del sistema. & Trigger de actualización automática de stock. \\
-Pagos & Módulo de pagos. & Procedimiento almacenado y control de saldo. \\
-Evidencia & Interfaces y funcionamiento del sistema. & Scripts, validaciones y catálogo Oracle. \\
+Propósito principal & Persistencia para un sistema web odontológico. & Diseño e implementación formal de base de datos. \\
+Capa dominante & Aplicación Laravel bajo MVC. & Motor Oracle con SQL y PL/SQL. \\
+Validaciones & Formularios, modelos, controladores y base de datos. & Restricciones, claves, triggers y procedimiento. \\
+Automatización & Principalmente desde la lógica de aplicación. & Triggers y procedimiento almacenado. \\
+Evidencia & Funcionalidad del sistema web. & Scripts, consultas, catálogo Oracle y datos de prueba. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-La transformación no consiste únicamente en cambiar tipos de datos. También formaliza reglas de integridad, separa responsabilidades y permite validar el diseño desde el propio motor Oracle.
+\subsection{Conversión de tipos de datos}
+
+La conversión física requirió adaptar tipos usados normalmente en MySQL o Laravel hacia tipos Oracle equivalentes. La tabla siguiente resume el criterio aplicado.
+
+\begin{table}[H]
+\caption{Conversión de tipos de datos hacia Oracle 19c}
+\centering
+\small
+\begin{tabularx}{\textwidth}{L{0.28\textwidth}L{0.28\textwidth}Y}
+\toprule
+\textbf{Necesidad} & \textbf{MySQL/Laravel} & \textbf{Oracle 19c aplicado} \\
+\midrule
+Clave primaria autogenerada & \path{INT AUTO_INCREMENT} o migraciones Laravel con \path{id()}. & \path{NUMBER GENERATED ALWAYS AS IDENTITY}. \\
+Texto variable & \path{VARCHAR}. & \path{VARCHAR2(n)}. \\
+Texto fijo corto & \path{CHAR}. & \path{CHAR(1)}. \\
+Fecha simple & \path{DATE}. & \path{DATE}. \\
+Fecha y hora & \path{DATETIME} o \path{TIMESTAMP}. & \path{TIMESTAMP}. \\
+Monto monetario & \path{DECIMAL(p,s)}. & \path{NUMBER(p,s)}. \\
+Estado lógico & Booleano, tinyint o entero. & \path{NUMBER(1)} o \path{VARCHAR2} con restricción. \\
+Fecha actual & \path{NOW()} o \path{CURRENT_TIMESTAMP}. & \path{SYSDATE} o \path{SYSTIMESTAMP}. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Conversión de módulos funcionales a tablas Oracle}
+
+Los módulos funcionales descritos en la tesis se transformaron en tablas y relaciones explícitas. El módulo de pacientes se convirtió en la tabla \texttt{PACIENTE}; la gestión documental se representó mediante \texttt{FOLDER}; las citas mediante \texttt{CITA}; la atención clínica mediante \texttt{ODONTOGRAMA} y \texttt{DETALLE\_ODONTOGRAMA}; los tratamientos mediante \texttt{TRATAMIENTO}; los pagos mediante \texttt{PLAN\_PAGO} y \texttt{PAGO}; y el inventario mediante \texttt{SUMINISTRO}, \texttt{COMPRA}, \texttt{DETALLE\_COMPRA} y \texttt{ALMACEN\_INVENTARIO}.
+
+\begin{table}[H]
+\caption{Transformación de módulos de la tesis a objetos Oracle}
+\centering
+\small
+\begin{tabularx}{\textwidth}{L{0.30\textwidth}Y Y}
+\toprule
+\textbf{Módulo documentado} & \textbf{Interpretación de datos} & \textbf{Objeto Oracle resultante} \\
+\midrule
+Registro de pacientes & Datos personales, contacto y antecedentes. & \texttt{PACIENTE}. \\
+Gestión de historias clínicas & Organización documental y clínica. & \texttt{FOLDER}, \texttt{ODONTOGRAMA}. \\
+Citas odontológicas & Programación entre paciente, doctor y asistente. & \texttt{CITA}. \\
+Odontograma & Evaluación dental por pieza, cara y diagnóstico. & \texttt{ODONTOGRAMA}, \texttt{DETALLE\_ODONTOGRAMA}. \\
+Tratamientos & Catálogo clínico de tratamientos. & \texttt{TRATAMIENTO}. \\
+Inventario odontológico & Suministros, compras y stock. & \texttt{SUMINISTRO}, \texttt{COMPRA}, \texttt{DETALLE\_COMPRA}, \texttt{ALMACEN\_INVENTARIO}. \\
+Pagos de pacientes & Plan financiero y abonos realizados. & \texttt{PLAN\_PAGO}, \texttt{PAGO}. \\
+Reportes consolidados & Consultas integradas de datos clínicos. & \texttt{VW\_HISTORIAL\_CLINICO}. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Conversión de reglas de integridad}
+
+En Laravel, muchas reglas pueden implementarse como validaciones de formulario, reglas de modelo o lógica de controlador. En Oracle 19c se decidió trasladar reglas críticas al motor para impedir inconsistencias aunque los datos sean manipulados desde DBeaver u otro cliente SQL.
+
+\begin{table}[H]
+\caption{Conversión de reglas de negocio a restricciones Oracle}
+\centering
+\small
+\begin{tabularx}{\textwidth}{L{0.30\textwidth}Y Y}
+\toprule
+\textbf{Regla} & \textbf{Enfoque Laravel/MySQL} & \textbf{Implementación Oracle 19c} \\
+\midrule
+Documento único de paciente & Validación de formulario y restricción única. & \texttt{UNIQUE(PACIENTE.ci\_dni)}. \\
+Doctor con correo único & Validación en aplicación o índice único. & \texttt{UNIQUE(DOCTOR.correo)}. \\
+Estado válido de cita & Validación desde formulario o controlador. & \texttt{CHECK} sobre \texttt{CITA.estado}. \\
+Pago positivo & Validación de entrada y regla de negocio. & \texttt{CHECK(monto\_abonado > 0)}. \\
+Saldo no negativo & Lógica de aplicación. & Trigger \texttt{TRG\_AUDITAR\_PLAN\_PAGO}. \\
+Compra actualiza inventario & Servicio o controlador Laravel. & Trigger \texttt{TRG\_ACTUALIZAR\_STOCK\_COMPRA}. \\
+Registro de pago consistente & Transacción en aplicación. & Procedimiento \texttt{SP\_REGISTRAR\_PAGO}. \\
+Consulta de historial clínico & Consulta desde modelos/controladores. & Vista \texttt{VW\_HISTORIAL\_CLINICO}. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Conversión de relaciones}
+
+Las relaciones que en Laravel podrían expresarse mediante modelos Eloquent se materializaron como claves foráneas en Oracle. La decisión permite que la integridad referencial no dependa únicamente de la aplicación.
+
+\begin{itemize}
+  \item \texttt{CITA} referencia a \texttt{PACIENTE}, \texttt{DOCTOR} y opcionalmente a \texttt{ASISTENTE}.
+  \item \texttt{ODONTOGRAMA} referencia a \texttt{PACIENTE} y \texttt{DOCTOR}.
+  \item \texttt{DETALLE\_ODONTOGRAMA} referencia a \texttt{ODONTOGRAMA} y opcionalmente a \texttt{TRATAMIENTO}.
+  \item \texttt{PLAN\_PAGO} referencia a \texttt{PACIENTE} y \texttt{ODONTOGRAMA}.
+  \item \texttt{PAGO} referencia a \texttt{PLAN\_PAGO} y opcionalmente a \texttt{ASISTENTE}.
+  \item \texttt{COMPRA} referencia a \texttt{PROVEEDOR} y opcionalmente a \texttt{ASISTENTE}.
+  \item \texttt{DETALLE\_COMPRA} referencia a \texttt{COMPRA} y \texttt{SUMINISTRO}.
+  \item \texttt{ALMACEN\_INVENTARIO} referencia de forma única a \texttt{SUMINISTRO}.
+\end{itemize}
+
+\subsection{Resultado de la transformación}
+
+El resultado final de la conversión es un schema Oracle llamado \texttt{FARMACIAS\_BD3}, compuesto por quince tablas, una vista, dos triggers, un procedimiento almacenado, scripts de datos de prueba y scripts de validación. Esta implementación permite demostrar no solo la estructura de datos, sino también el comportamiento del modelo ante operaciones reales como compras y pagos.
+
+\subsection{Limitación de la comparación}
+
+La comparación se basa en la tesis y en su sitio web de repositorio, no en un dump MySQL original. Por esa razón, las equivalencias se expresan a nivel de dominio, modelo de datos, tipos, reglas y objetos Oracle. No se presenta como una migración automática línea por línea.

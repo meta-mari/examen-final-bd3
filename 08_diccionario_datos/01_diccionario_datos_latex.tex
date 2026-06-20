@@ -1,0 +1,524 @@
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.15}
+\subsection{Diccionario de datos}
+
+\subsubsection{Descripción general}
+
+El presente diccionario de datos documenta las tablas, columnas, tipos de datos, claves, restricciones y propósito funcional del esquema implementado en Oracle Database 19c. El modelo físico corresponde a una base de datos orientada a la administración de procesos de registro, atención clínica odontológica, inventario y pagos.\par
+
+Aunque el schema del proyecto se denomina \texttt{FARMACIAS\_BD3} por convención del repositorio y del entorno académico, las entidades implementadas corresponden al dominio del sistema odontológico analizado a partir de la tesis base.\par
+
+
+
+\subsubsection{Tabla: ASISTENTE}
+
+\textbf{Propósito:} almacena los datos del personal asistente que participa en la gestión de citas, compras y pagos.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_asistente & NUMBER & No & PK & Identificador único generado automáticamente. \\
+ci\_dni & VARCHAR2(20) & No & UK & Documento de identidad del asistente. \\
+nombres & VARCHAR2(80) & No &  & Nombres del asistente. \\
+apellidos & VARCHAR2(80) & No &  & Apellidos del asistente. \\
+telefono & VARCHAR2(15) & Sí &  & Número telefónico de contacto. \\
+turno & VARCHAR2(20) & Sí &  & Turno asignado al asistente. \\
+fecha\_contratacion & DATE & Sí &  & Fecha de contratación. \\
+estado & NUMBER(1) & No &  & Estado lógico del registro. Valor por defecto: 1. \\
+\bottomrule
+\end{longtable}
+
+
+
+\subsubsection{Tabla: FOLDER}
+
+\textbf{Propósito:} representa el archivador o carpeta física/digital donde se ubica la documentación clínica del paciente.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_folder & NUMBER & No & PK & Identificador único generado automáticamente. \\
+codigo\_archivo & VARCHAR2(20) & No & UK & Código único del archivador o carpeta. \\
+estante & VARCHAR2(20) & Sí &  & Estante donde se ubica el archivo. \\
+seccion & VARCHAR2(20) & Sí &  & Sección dentro del estante. \\
+observaciones & VARCHAR2(255) & Sí &  & Notas adicionales sobre el archivo. \\
+\bottomrule
+\end{longtable}
+
+
+
+\subsubsection{Tabla: TRATAMIENTO}
+
+\textbf{Propósito:} catálogo de tratamientos odontológicos disponibles.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_tratamiento & NUMBER & No & PK & Identificador único generado automáticamente. \\
+nombre & VARCHAR2(100) & No &  & Nombre del tratamiento. \\
+descripcion & VARCHAR2(255) & Sí &  & Descripción breve del tratamiento. \\
+costo\_referencial & NUMBER(10,2) & No &  & Costo referencial del tratamiento. \\
+estado & NUMBER(1) & No &  & Estado lógico del tratamiento. Valor por defecto: 1. \\
+\bottomrule
+\end{longtable}
+
+
+
+\subsubsection{Tabla: DOCTOR}
+
+\textbf{Propósito:} almacena los datos de los doctores u odontólogos que atienden pacientes y registran odontogramas.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_doctor & NUMBER & No & PK & Identificador único generado automáticamente. \\
+ci\_dni & VARCHAR2(20) & No & UK & Documento de identidad del doctor. \\
+nombres & VARCHAR2(80) & No &  & Nombres del doctor. \\
+apellidos & VARCHAR2(80) & No &  & Apellidos del doctor. \\
+especialidad & VARCHAR2(100) & Sí &  & Especialidad odontológica. \\
+telefono & VARCHAR2(15) & Sí &  & Teléfono de contacto. \\
+correo & VARCHAR2(100) & Sí & UK & Correo electrónico único. \\
+estado & NUMBER(1) & No &  & Estado lógico del registro. Valor por defecto: 1. \\
+\bottomrule
+\end{longtable}
+
+
+
+\subsubsection{Tabla: PROVEEDOR}
+
+\textbf{Propósito:} almacena proveedores de suministros, materiales e insumos.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_proveedor & NUMBER & No & PK & Identificador único generado automáticamente. \\
+nit\_ruc & VARCHAR2(20) & No & UK & Número de identificación tributaria del proveedor. \\
+razon\_social & VARCHAR2(100) & No &  & Razón social del proveedor. \\
+nombre\_contacto & VARCHAR2(80) & Sí &  & Nombre de la persona de contacto. \\
+telefono & VARCHAR2(15) & Sí &  & Teléfono de contacto. \\
+direccion & VARCHAR2(255) & Sí &  & Dirección del proveedor. \\
+correo & VARCHAR2(100) & Sí &  & Correo electrónico del proveedor. \\
+\bottomrule
+\end{longtable}
+
+
+
+\subsubsection{Tabla: SUMINISTRO}
+
+\textbf{Propósito:} catálogo de suministros utilizados en la atención odontológica y administración del inventario.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_suministro & NUMBER & No & PK & Identificador único generado automáticamente. \\
+codigo\_barras & VARCHAR2(50) & Sí & UK & Código de barras o código interno del suministro. \\
+nombre & VARCHAR2(100) & No &  & Nombre del suministro. \\
+categoria & VARCHAR2(50) & Sí &  & Categoría del suministro. \\
+unidad\_medida & VARCHAR2(20) & Sí &  & Unidad de medida usada para controlar stock. \\
+stock\_minimo & NUMBER(5) & No &  & Cantidad mínima recomendada en inventario. \\
+estado & NUMBER(1) & No &  & Estado lógico del suministro. Valor por defecto: 1. \\
+\bottomrule
+\end{longtable}
+
+
+
+\subsubsection{Tabla: PACIENTE}
+
+\textbf{Propósito:} registra los datos personales y antecedentes clínicos básicos de los pacientes.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_paciente & NUMBER & No & PK & Identificador único generado automáticamente. \\
+id\_folder & NUMBER & Sí & FK & Referencia al archivador físico o digital del paciente. \\
+ci\_dni & VARCHAR2(20) & No & UK & Documento de identidad del paciente. \\
+nombres & VARCHAR2(80) & No &  & Nombres del paciente. \\
+apellidos & VARCHAR2(80) & No &  & Apellidos del paciente. \\
+fecha\_nacimiento & DATE & No &  & Fecha de nacimiento. \\
+sexo & CHAR(1) & Sí &  & Sexo registrado del paciente. \\
+telefono & VARCHAR2(15) & Sí &  & Teléfono de contacto. \\
+direccion & VARCHAR2(255) & Sí &  & Dirección del paciente. \\
+antecedentes\_medicos & VARCHAR2(500) & Sí &  & Antecedentes médicos declarados. \\
+fecha\_registro & DATE & Sí &  & Fecha de registro del paciente. Valor por defecto: SYSDATE. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Relaciones:}\par
+\texttt{PACIENTE.id\_folder} referencia \texttt{FOLDER.id\_folder} con \texttt{ON DELETE SET NULL}.\par
+
+
+
+\subsubsection{Tabla: CITA}
+
+\textbf{Propósito:} registra la programación de atenciones odontológicas.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_cita & NUMBER & No & PK & Identificador único generado automáticamente. \\
+id\_paciente & NUMBER & No & FK & Paciente citado. \\
+id\_doctor & NUMBER & No & FK & Doctor asignado. \\
+id\_asistente & NUMBER & Sí & FK & Asistente relacionado con la cita. \\
+fecha\_hora & TIMESTAMP & No &  & Fecha y hora programada. \\
+motivo & VARCHAR2(255) & No &  & Motivo de la cita. \\
+estado & VARCHAR2(20) & No & CHECK & Estado de la cita. \\
+fecha\_creacion & DATE & Sí &  & Fecha de creación del registro. Valor por defecto: SYSDATE. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Valores permitidos para estado:} \texttt{Pendiente}, \texttt{Confirmada}, \texttt{Atendida}, \texttt{Cancelada}, \texttt{Reprogramada}.\par
+
+\textbf{Relaciones:}\par
+\texttt{CITA.id\_paciente} referencia \texttt{PACIENTE.id\_paciente}.\par
+\texttt{CITA.id\_doctor} referencia \texttt{DOCTOR.id\_doctor}.\par
+\texttt{CITA.id\_asistente} referencia \texttt{ASISTENTE.id\_asistente}.\par
+
+
+
+\subsubsection{Tabla: ODONTOGRAMA}
+
+\textbf{Propósito:} representa la evaluación odontológica general de un paciente.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_odontograma & NUMBER & No & PK & Identificador único generado automáticamente. \\
+id\_paciente & NUMBER & No & FK & Paciente evaluado. \\
+id\_doctor & NUMBER & No & FK & Doctor que registra la evaluación. \\
+fecha\_evaluacion & DATE & No &  & Fecha de evaluación. Valor por defecto: SYSDATE. \\
+observaciones\_generales & VARCHAR2(500) & Sí &  & Observaciones clínicas generales. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Relaciones:}\par
+\texttt{ODONTOGRAMA.id\_paciente} referencia \texttt{PACIENTE.id\_paciente}.\par
+\texttt{ODONTOGRAMA.id\_doctor} referencia \texttt{DOCTOR.id\_doctor}.\par
+
+
+
+\subsubsection{Tabla: DETALLE\_ODONTOGRAMA}
+
+\textbf{Propósito:} registra el detalle clínico por pieza dental, cara, diagnóstico y tratamiento asociado.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_detalle & NUMBER & No & PK & Identificador único generado automáticamente. \\
+id\_odontograma & NUMBER & No & FK & Odontograma al que pertenece el detalle. \\
+id\_tratamiento & NUMBER & Sí & FK & Tratamiento asociado, si corresponde. \\
+pieza\_dental & VARCHAR2(10) & No &  & Código o número de pieza dental. \\
+cara & VARCHAR2(20) & No &  & Cara dental evaluada. \\
+diagnostico & VARCHAR2(100) & No &  & Diagnóstico registrado. \\
+estado & VARCHAR2(20) & Sí &  & Estado del tratamiento o atención. Valor por defecto: Por tratar. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Relaciones:}\par
+\texttt{DETALLE\_ODONTOGRAMA.id\_odontograma} referencia \texttt{ODONTOGRAMA.id\_odontograma} con \texttt{ON DELETE CASCADE}.\par
+\texttt{DETALLE\_ODONTOGRAMA.id\_tratamiento} referencia \texttt{TRATAMIENTO.id\_tratamiento}.\par
+
+
+
+\subsubsection{Tabla: PLAN\_PAGO}
+
+\textbf{Propósito:} registra el costo total y saldo pendiente de los tratamientos asociados a un odontograma.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_plan\_pago & NUMBER & No & PK & Identificador único generado automáticamente. \\
+id\_paciente & NUMBER & No & FK & Paciente asociado al plan. \\
+id\_odontograma & NUMBER & No & FK & Odontograma relacionado. \\
+fecha\_creacion & DATE & Sí &  & Fecha de creación del plan. Valor por defecto: SYSDATE. \\
+costo\_total & NUMBER(10,2) & No &  & Costo total del plan. \\
+saldo\_pendiente & NUMBER(10,2) & No &  & Saldo pendiente de pago. \\
+estado & VARCHAR2(20) & Sí &  & Estado del plan. Valor por defecto: Vigente. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Relaciones:}\par
+\texttt{PLAN\_PAGO.id\_paciente} referencia \texttt{PACIENTE.id\_paciente}.\par
+\texttt{PLAN\_PAGO.id\_odontograma} referencia \texttt{ODONTOGRAMA.id\_odontograma}.\par
+
+\textbf{Regla automatizada:}\par
+El trigger \texttt{TRG\_AUDITAR\_PLAN\_PAGO} impide que el saldo pendiente sea negativo y cambia el estado a \texttt{Pagado} cuando el saldo llega a cero.\par
+
+
+
+\subsubsection{Tabla: PAGO}
+
+\textbf{Propósito:} registra los pagos efectuados por los pacientes sobre un plan de pago.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_pago & NUMBER & No & PK & Identificador único generado automáticamente. \\
+id\_plan\_pago & NUMBER & No & FK & Plan de pago asociado. \\
+id\_asistente & NUMBER & Sí & FK & Asistente que registra el pago. \\
+fecha\_pago & TIMESTAMP & No &  & Fecha y hora del pago. Valor por defecto: SYSTIMESTAMP. \\
+monto\_abonado & NUMBER(10,2) & No & CHECK & Monto abonado. Debe ser mayor a cero. \\
+metodo\_pago & VARCHAR2(30) & No &  & Método de pago utilizado. \\
+nro\_comprobante & VARCHAR2(50) & Sí &  & Número de recibo o comprobante. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Relaciones:}\par
+\texttt{PAGO.id\_plan\_pago} referencia \texttt{PLAN\_PAGO.id\_plan\_pago}.\par
+\texttt{PAGO.id\_asistente} referencia \texttt{ASISTENTE.id\_asistente}.\par
+
+\textbf{Regla:}\par
+\texttt{CHK\_MONTO\_PAGO} exige que \texttt{monto\_abonado \textgreater{} 0}.\par
+
+
+
+\subsubsection{Tabla: COMPRA}
+
+\textbf{Propósito:} registra compras de suministros realizadas a proveedores.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_compra & NUMBER & No & PK & Identificador único generado automáticamente. \\
+id\_proveedor & NUMBER & No & FK & Proveedor de la compra. \\
+id\_asistente & NUMBER & Sí & FK & Asistente que registra la compra. \\
+fecha\_compra & DATE & No &  & Fecha de la compra. \\
+nro\_factura & VARCHAR2(50) & Sí &  & Número de factura. \\
+total\_compra & NUMBER(10,2) & No &  & Total monetario de la compra. \\
+estado & VARCHAR2(20) & Sí &  & Estado de la compra. Valor por defecto: Completada. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Relaciones:}\par
+\texttt{COMPRA.id\_proveedor} referencia \texttt{PROVEEDOR.id\_proveedor}.\par
+\texttt{COMPRA.id\_asistente} referencia \texttt{ASISTENTE.id\_asistente}.\par
+
+
+
+\subsubsection{Tabla: DETALLE\_COMPRA}
+
+\textbf{Propósito:} registra los suministros incluidos en cada compra.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_detalle\_compra & NUMBER & No & PK & Identificador único generado automáticamente. \\
+id\_compra & NUMBER & No & FK & Compra a la que pertenece el detalle. \\
+id\_suministro & NUMBER & No & FK & Suministro comprado. \\
+cantidad & NUMBER(8,2) & No &  & Cantidad comprada. \\
+precio\_unitario & NUMBER(10,2) & No &  & Precio unitario del suministro. \\
+subtotal & NUMBER(10,2) & No &  & Subtotal del detalle. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Relaciones:}\par
+\texttt{DETALLE\_COMPRA.id\_compra} referencia \texttt{COMPRA.id\_compra} con \texttt{ON DELETE CASCADE}.\par
+\texttt{DETALLE\_COMPRA.id\_suministro} referencia \texttt{SUMINISTRO.id\_suministro}.\par
+
+\textbf{Regla automatizada:}\par
+El trigger \texttt{TRG\_ACTUALIZAR\_STOCK\_COMPRA} actualiza o crea el registro correspondiente en \texttt{ALMACEN\_INVENTARIO} después de insertar un detalle de compra.\par
+
+
+
+\subsubsection{Tabla: ALMACEN\_INVENTARIO}
+
+\textbf{Propósito:} controla el stock actual por suministro.\par
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Campo} & \textbf{Tipo Oracle} & \textbf{Nulo} & \textbf{Clave} & \textbf{Descripción} \\
+\midrule
+\endhead
+id\_inventario & NUMBER & No & PK & Identificador único generado automáticamente. \\
+id\_suministro & NUMBER & No & FK / UK & Suministro inventariado. Debe ser único en inventario. \\
+stock\_actual & NUMBER(8,2) & No &  & Stock disponible actual. \\
+ultima\_actualizacion & TIMESTAMP & Sí &  & Fecha y hora de última actualización. Valor por defecto: SYSTIMESTAMP. \\
+\bottomrule
+\end{longtable}
+
+\textbf{Relaciones:}\par
+\texttt{ALMACEN\_INVENTARIO.id\_suministro} referencia \texttt{SUMINISTRO.id\_suministro}.\par
+
+
+
+\subsubsection{Vista: VW\_HISTORIAL\_CLINICO}
+
+\textbf{Propósito:} integra información de pacientes, doctores, odontogramas, detalles clínicos y tratamientos para consultar el historial clínico odontológico.\par
+
+\begin{longtable}{p{0.46\linewidth}p{0.46\linewidth}}
+\toprule
+\textbf{Columna} & \textbf{Descripción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Columna} & \textbf{Descripción} \\
+\midrule
+\endhead
+dni\_paciente & Documento de identidad del paciente. \\
+nombre\_paciente & Nombre completo del paciente. \\
+doctor\_tratante & Nombre completo del doctor tratante. \\
+fecha\_evaluacion & Fecha de evaluación del odontograma. \\
+pieza\_dental & Pieza dental evaluada. \\
+diagnostico & Diagnóstico registrado. \\
+tratamiento\_aplicado & Tratamiento asociado al diagnóstico. \\
+estado\_tratamiento & Estado del tratamiento en el detalle del odontograma. \\
+\bottomrule
+\end{longtable}
+
+
+
+\subsubsection{Triggers}
+
+\begin{longtable}{p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}p{0.23\linewidth}}
+\toprule
+\textbf{Trigger} & \textbf{Tabla} & \textbf{Evento} & \textbf{Propósito} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Trigger} & \textbf{Tabla} & \textbf{Evento} & \textbf{Propósito} \\
+\midrule
+\endhead
+TRG\_ACTUALIZAR\_STOCK\_COMPRA & DETALLE\_COMPRA & AFTER INSERT & Actualiza o crea el stock del suministro comprado en \texttt{ALMACEN\_INVENTARIO}. \\
+TRG\_AUDITAR\_PLAN\_PAGO & PLAN\_PAGO & BEFORE UPDATE OF saldo\_pendiente & Evita saldos negativos y cambia el estado del plan a \texttt{Pagado} cuando el saldo llega a cero. \\
+\bottomrule
+\end{longtable}
+
+
+
+\subsubsection{Procedimientos almacenados}
+
+\begin{longtable}{p{0.46\linewidth}p{0.46\linewidth}}
+\toprule
+\textbf{Procedimiento} & \textbf{Propósito} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Procedimiento} & \textbf{Propósito} \\
+\midrule
+\endhead
+SP\_REGISTRAR\_PAGO & Registra un pago, valida que el monto sea positivo, valida que no exceda el saldo pendiente, inserta el registro en \texttt{PAGO} y actualiza el saldo del \texttt{PLAN\_PAGO}. \\
+\bottomrule
+\end{longtable}
+
+
+
+\subsubsection{Resumen de integridad referencial}
+
+\begin{longtable}{p{0.18\linewidth}p{0.18\linewidth}p{0.08\linewidth}p{0.08\linewidth}p{0.36\linewidth}}
+\toprule
+\textbf{Tabla hija} & \textbf{Columna FK} & \textbf{Tabla padre} & \textbf{Columna PK} & \textbf{Acción} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Tabla hija} & \textbf{Columna FK} & \textbf{Tabla padre} & \textbf{Columna PK} & \textbf{Acción} \\
+\midrule
+\endhead
+PACIENTE & id\_folder & FOLDER & id\_folder & ON DELETE SET NULL \\
+CITA & id\_paciente & PACIENTE & id\_paciente & Restrictiva \\
+CITA & id\_doctor & DOCTOR & id\_doctor & Restrictiva \\
+CITA & id\_asistente & ASISTENTE & id\_asistente & Restrictiva \\
+ODONTOGRAMA & id\_paciente & PACIENTE & id\_paciente & Restrictiva \\
+ODONTOGRAMA & id\_doctor & DOCTOR & id\_doctor & Restrictiva \\
+DETALLE\_ODONTOGRAMA & id\_odontograma & ODONTOGRAMA & id\_odontograma & ON DELETE CASCADE \\
+DETALLE\_ODONTOGRAMA & id\_tratamiento & TRATAMIENTO & id\_tratamiento & Restrictiva \\
+PLAN\_PAGO & id\_paciente & PACIENTE & id\_paciente & Restrictiva \\
+PLAN\_PAGO & id\_odontograma & ODONTOGRAMA & id\_odontograma & Restrictiva \\
+PAGO & id\_plan\_pago & PLAN\_PAGO & id\_plan\_pago & Restrictiva \\
+PAGO & id\_asistente & ASISTENTE & id\_asistente & Restrictiva \\
+COMPRA & id\_proveedor & PROVEEDOR & id\_proveedor & Restrictiva \\
+COMPRA & id\_asistente & ASISTENTE & id\_asistente & Restrictiva \\
+DETALLE\_COMPRA & id\_compra & COMPRA & id\_compra & ON DELETE CASCADE \\
+DETALLE\_COMPRA & id\_suministro & SUMINISTRO & id\_suministro & Restrictiva \\
+ALMACEN\_INVENTARIO & id\_suministro & SUMINISTRO & id\_suministro & Restrictiva \\
+\bottomrule
+\end{longtable}
+\endgroup

@@ -1,14 +1,25 @@
-\section{Anexo: scripts SQL}
+\section{Anexo: scripts SQL y PL/SQL}
+
+Este anexo incorpora los scripts usados para crear, implementar, cargar y validar la base de datos en Oracle 19c.
 
 \subsection{Creación de schema/usuario}
 
-\lstinputlisting[language=SQL]{../05_oracle_ddl/00_admin_crear_schema.sql}
+El siguiente script corresponde al archivo administrativo \texttt{05\_oracle\_ddl/00\_admin\_crear\_schema.sql}. Su propósito es crear el usuario/schema \texttt{FARMACIAS\_BD3} y asignar los permisos necesarios para la implementación de tablas, vistas, triggers y procedimientos en Oracle 19c.
+
+\lstinputlisting[
+  language=SQL,
+  caption={Creación de usuario/schema y permisos en Oracle 19c}
+]{../05_oracle_ddl/00_admin_crear_schema.sql}
+
+\subsection{Limpieza de esquema}
+
+\lstinputlisting[language=SQL]{../05_oracle_ddl/01_limpieza_esquema.sql}
 
 \subsection{DDL físico Oracle 19c}
 
 \lstinputlisting[language=SQL]{../05_oracle_ddl/02_tablas.sql}
 
-\subsection{Vista}
+\subsection{Vista de historial clínico}
 
 \lstinputlisting[language=SQL]{../05_oracle_ddl/03_vistas.sql}
 
@@ -16,10 +27,36 @@
 
 \lstinputlisting[language=SQL]{../05_oracle_ddl/04_triggers.sql}
 
-\subsection{Procedimiento almacenado}
+\subsection{Procedimiento almacenado formal}
 
 \lstinputlisting[language=SQL]{../05_oracle_ddl/05_procedimientos.sql}
+
+\subsection{Procedimiento almacenado compatible con DBeaver}
+
+\lstinputlisting[language=SQL]{../05_oracle_ddl/05_procedimientos_dbeaver.sql}
 
 \subsection{Datos de prueba}
 
 \lstinputlisting[language=SQL]{../05_oracle_ddl/06_datos_prueba.sql}
+
+\subsection{Ejecutor general}
+
+\lstinputlisting[language=SQL]{../05_oracle_ddl/99_ejecutar_todo.sql}
+
+\section{Anexo: scripts de validación}
+
+\subsection{Validación de estructura}
+
+\lstinputlisting[language=SQL]{../10_validaciones/01_validacion_estructura.sql}
+
+\subsection{Validación de datos de prueba}
+
+\lstinputlisting[language=SQL]{../10_validaciones/02_validacion_datos_prueba.sql}
+
+\subsection{Prueba del procedimiento de pago}
+
+\lstinputlisting[language=SQL]{../10_validaciones/03_prueba_procedimiento_pago.sql}
+
+\subsection{Diccionario técnico extraído desde Oracle}
+
+\lstinputlisting[language=SQL]{../10_validaciones/04_diccionario_tecnico_oracle.sql}

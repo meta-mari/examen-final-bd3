@@ -2,6 +2,10 @@
 
 La implementación física se realizó en Oracle Database 19c dentro del schema \texttt{FARMACIAS\_BD3}. En Oracle, el schema está asociado al usuario propietario de los objetos, por lo que se creó un usuario específico para contener las tablas, vistas, triggers y procedimientos del proyecto.
 
+
+\paragraph{Compatibilidad de ejecución de los scripts.}
+Aunque las pruebas y evidencias del proyecto se ejecutaron principalmente en DBeaver, los scripts se mantuvieron con sintaxis estándar de Oracle 19c. En particular, los bloques PL/SQL, triggers y procedimientos conservan la barra diagonal \texttt{/} como delimitador de ejecución al finalizar el bloque. Por esta razón, el código puede ejecutarse también en Oracle SQL Developer, SQL*Plus y otros clientes o IDEs compatibles con Oracle. La variante específica para DBeaver se conserva únicamente como alternativa práctica cuando dicho cliente divide incorrectamente un bloque PL/SQL durante la ejecución.
+
 \subsection{Scripts implementados}
 
 \begin{table}[H]
