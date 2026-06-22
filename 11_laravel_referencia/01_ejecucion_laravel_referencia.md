@@ -1,25 +1,23 @@
-# Ejecución del sistema Laravel de referencia
+# Ejecución de la aplicación Laravel del proyecto
 
 ## Propósito
 
-Se clonó y ejecutó el repositorio Laravel del equipo `AlanDevPro/sistema-odontologico` como implementación funcional del sistema del sistema odontológico LALYSDENT. Esta ejecución complementa la tesis base y corresponde a la implementación web propia del sistema y permite observar una aplicación web real relacionada con el dominio odontológico.
+Se ejecutó la aplicación web Laravel desarrollada por el equipo para el sistema odontológico LALYSDENT. Esta ejecución permite evidenciar el funcionamiento del sistema web asociado al mismo dominio de la base de datos diseñada en el examen.
 
-La base de datos principal del examen se mantiene en el schema `FARMACIAS_BD3`. El Laravel clonado se ejecutó con un schema separado llamado `LALYSDENT_APP`, para evitar mezclar la implementación académica diseñada en Oracle 19c con la base usada por la aplicación Laravel.
+La base de datos principal del examen se mantiene en el schema `FARMACIAS_BD3`. La aplicación Laravel se ejecutó con un schema separado llamado `LALYSDENT_APP`, para evitar mezclar la base diseñada manualmente en Oracle 19c con la base gestionada por las migraciones y seeders de Laravel.
 
-## Repositorios de referencia
+## Materiales y repositorios usados
 
-Se usaron dos direcciones externas:
-
-| Repositorio o sitio | Dirección | Uso en el informe |
+| Material | Dirección | Uso en el informe |
 |---|---|---|
-| Repositorio académico de tesis Calvo & Cobos | `https://calvocobos.github.io/` | Fuente documental de la tesis base y del contexto LALYSDENT. |
-| Repositorio Laravel del proyecto LALYSDENT | `https://github.com/AlanDevPro/sistema-odontologico` | Repositorio propio del proyecto usado para ejecutar y verificar la aplicación Laravel funcional. |
+| Sitio web de la tesis base | `https://calvocobos.github.io/` | Apoyo documental para el contexto del sistema LALYSDENT. |
+| Repositorio Laravel del equipo | `https://github.com/AlanDevPro/sistema-odontologico` | Implementación web propia del proyecto, ejecutada localmente para generar evidencias funcionales. |
 
 ## Separación de alcance
 
-El sistema Laravel funciona con su propia base de datos Oracle mediante migraciones y seeders. No se conectó con el schema `FARMACIAS_BD3`, porque la base de datos diseñada en el examen es el producto principal.
+La aplicación Laravel funciona con su propia base de datos Oracle mediante migraciones y seeders. No se conectó con el schema `FARMACIAS_BD3`, porque la base de datos diseñada en el examen es el producto principal.
 
-Por tanto, la ejecución Laravel se interpreta como evidencia funcional complementaria y no como sustitución del diseño físico desarrollado en el examen.
+Por tanto, la ejecución Laravel se interpreta como evidencia funcional complementaria del sistema web, no como sustitución del diseño físico desarrollado en el examen.
 
 ## Entorno verificado
 
@@ -33,9 +31,9 @@ Se verificó el entorno de ejecución con:
 - Oracle Instant Client 19.31.
 - Extensión PHP OCI8 3.4.1.
 
-## Configuración Oracle del Laravel
+## Configuración Oracle de la aplicación Laravel
 
-El archivo `.env` del Laravel se configuró con conexión Oracle:
+El archivo `.env` se configuró con conexión Oracle:
 
 - `DB_CONNECTION=oracle`
 - `DB_HOST=127.0.0.1`
@@ -51,11 +49,11 @@ También se agregó la conexión `oracle` en `config/database.php`, usando el dr
 | Schema | Uso |
 |---|---|
 | `FARMACIAS_BD3` | Base de datos diseñada, documentada y validada como producto principal del examen. |
-| `LALYSDENT_APP` | Schema usado únicamente para ejecutar las migraciones y seeders del Laravel clonado. |
+| `LALYSDENT_APP` | Schema usado para ejecutar las migraciones y seeders de la aplicación Laravel del proyecto. |
 
 ## Migraciones y seeders
 
-Se ejecutaron las migraciones y seeders del Laravel en `LALYSDENT_APP`. La ejecución creó tablas de autenticación, tablas administrativas y tablas propias del dominio odontológico, incluyendo pacientes, doctores, citas, odontogramas, pagos, compras, proveedores, suministros e inventario.
+Se ejecutaron las migraciones y seeders de Laravel en `LALYSDENT_APP`. La ejecución creó tablas de autenticación, tablas administrativas y tablas propias del dominio odontológico, incluyendo pacientes, doctores, citas, odontogramas, pagos, compras, proveedores, suministros e inventario.
 
 ## Usuarios de prueba
 
@@ -73,7 +71,7 @@ La contraseña de prueba usada por el seeder es `password`.
 
 | Evidencia | Descripción |
 |---|---|
-| `19_laravel_repo_clonado.png` | Repositorio Laravel clonado y estructura inicial. |
+| `19_laravel_repo_clonado.png` | Repositorio Laravel del equipo disponible localmente y estructura inicial. |
 | `20_laravel_entorno_php_node.png` | Versiones de PHP, Composer, Node.js, npm y módulos PHP. |
 | `21_laravel_instantclient_oci8.png` | Oracle Instant Client y extensión OCI8 funcionando en PHP. |
 | `22_laravel_dependencias_ok.png` | Composer, npm, build y requisitos de plataforma correctos. |
@@ -88,4 +86,4 @@ La contraseña de prueba usada por el seeder es `password`.
 
 ## Conclusión
 
-La ejecución del Laravel confirma que existe una aplicación funcional relacionada con el dominio odontológico LALYSDENT. Sin embargo, el objetivo central del examen sigue siendo el diseño, transformación, implementación, validación y documentación de la base Oracle 19c en `FARMACIAS_BD3`.
+La ejecución de la aplicación Laravel demuestra que el sistema web del proyecto funciona correctamente con Oracle. Esta evidencia complementa el informe, pero no sustituye el diseño de base de datos desarrollado en `FARMACIAS_BD3`.
