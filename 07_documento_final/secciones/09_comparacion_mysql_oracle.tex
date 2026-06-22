@@ -121,3 +121,9 @@ El resultado final de la conversión es un schema Oracle llamado \texttt{FARMACI
 \subsection{Limitación de la comparación}
 
 La comparación se basa en la tesis y en su sitio web de repositorio, no en un dump MySQL original. Por esa razón, las equivalencias se expresan a nivel de dominio, modelo de datos, tipos, reglas y objetos Oracle. No se presenta como una migración automática línea por línea.
+
+\subsection{Diferencia entre conversión documental y ejecución Laravel}
+
+La comparación anterior se basa en dos niveles. El primer nivel es documental: la tesis y su repositorio académico permiten identificar el dominio funcional, los módulos principales y el contexto del sistema LALYSDENT. El segundo nivel es técnico: el repositorio Laravel clonado permitió verificar una aplicación funcional con Oracle, migraciones, seeders, autenticación y módulos operativos.
+
+Aun así, el diseño \texttt{FARMACIAS\_BD3} no se presenta como una copia automática del schema usado por Laravel. La base del examen fue elaborada como diseño independiente, con modelo conceptual Chen, transformación relacional, modelo lógico Crow's Foot, diseño físico Oracle 19c, diccionario de datos, validaciones y objetos PL/SQL propios. El Laravel se usa como referencia funcional para reforzar el análisis del dominio y comprobar que el sistema original puede ejecutarse con Oracle en un entorno separado.

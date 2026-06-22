@@ -1,0 +1,91 @@
+\section{Ejecución del sistema Laravel de referencia}
+
+Además de la tesis base y del repositorio académico de Calvo y Cobos, se clonó y ejecutó el repositorio Laravel del sistema odontológico LALYSDENT. Esta ejecución se realizó como referencia funcional del dominio, no como reemplazo del diseño de base de datos desarrollado en este examen.
+
+Se consideraron dos direcciones externas. La primera corresponde al repositorio académico de la tesis base, disponible en \url{https://calvocobos.github.io/}. La segunda corresponde al repositorio técnico Laravel clonado y ejecutado localmente, disponible en \url{https://github.com/AlanDevPro/sistema-odontologico} \parencite{calvocobos2025web,sistemaodontologicogithub}.
+
+\subsection{Relación con la tesis base}
+
+La tesis base documenta un sistema de información web para la administración de procesos de registro, atención, inventario y finanzas del consultorio odontológico LALYSDENT. El repositorio Laravel revisado permite complementar esa documentación con una aplicación funcional relacionada con el mismo dominio.
+
+Sin embargo, el alcance del presente examen no consiste en modificar la aplicación Laravel ni en adaptar su código al schema construido en este trabajo. El Laravel se ejecutó para verificar el sistema de referencia y para fortalecer la comparación técnica entre el enfoque de aplicación web y el diseño de base de datos realizado en Oracle 19c.
+
+\subsection{Separación entre schemas Oracle}
+
+Para evitar mezclar responsabilidades, se usaron dos schemas distintos en Oracle:
+
+\begin{table}[H]
+\caption{Separación de schemas Oracle}
+\centering
+\small
+\begin{tabularx}{\textwidth}{L{0.28\textwidth}Y}
+\toprule
+\textbf{Schema} & \textbf{Uso} \\
+\midrule
+\texttt{FARMACIAS\_BD3} & Schema diseñado, documentado y validado como producto principal del examen final. Contiene la base construida manualmente mediante SQL y PL/SQL. \\
+\texttt{LALYSDENT\_APP} & Schema usado únicamente para ejecutar las migraciones y seeders del Laravel clonado. Permite comprobar la aplicación sin alterar el diseño del examen. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Esta separación es importante porque el sistema Laravel ya posee su propia estructura de base de datos, sus migraciones y su lógica de aplicación. Por ello, no fue necesario conectarlo al schema \texttt{FARMACIAS\_BD3}.
+
+\subsection{Entorno técnico verificado}
+
+El repositorio Laravel fue ejecutado con PHP 8.5.7, Composer 2.9.2, Node.js 24.12.0, npm 11.6.2, Laravel Framework 12.62.0, Oracle Instant Client 19.31 y la extensión PHP OCI8 3.4.1. También se verificó la presencia de dependencias relevantes como \texttt{laravel/framework}, \texttt{laravel/jetstream}, \texttt{livewire/livewire} y \texttt{yajra/laravel-oci8}.
+
+\figuranormal{20_laravel_entorno_php_node.png}
+{Entorno PHP, Composer, Node.js, npm y módulos PHP para ejecutar Laravel.}
+{fig:laravel-entorno}
+
+\figuranormal{21_laravel_instantclient_oci8.png}
+{Oracle Instant Client y extensión OCI8 habilitados en PHP.}
+{fig:laravel-oci8}
+
+\figuranormal{22_laravel_dependencias_ok.png}
+{Dependencias Composer/npm y build del Laravel completados.}
+{fig:laravel-dependencias}
+
+\subsection{Conexión Oracle del Laravel}
+
+El Laravel se configuró con conexión \texttt{oracle}, servicio \texttt{ORCLPDB1} y usuario \texttt{LALYSDENT\_APP}. Primero se validó la conexión directa desde PHP mediante OCI8; luego se verificó que Laravel leyera correctamente la conexión configurada en \texttt{.env} y \texttt{config/database.php}.
+
+\figuranormal{25_laravel_conexion_oci8_lalysdent_app.png}
+{Conexión OCI8 directa desde PHP al schema LALYSDENT\_APP.}
+{fig:laravel-conexion-oci8}
+
+\figuranormal{26_laravel_env_oracle_configurado.png}
+{Laravel configurado con conexión oracle y servicio ORCLPDB1.}
+{fig:laravel-env-oracle}
+
+\subsection{Migraciones, seeders y datos}
+
+Las migraciones del Laravel se ejecutaron sobre el schema \texttt{LALYSDENT\_APP}. Posteriormente, los seeders cargaron usuarios, pacientes, doctores, citas, tratamientos, pagos, proveedores, compras, suministros e inventario. Esto permitió verificar que la aplicación cuenta con datos de prueba propios.
+
+\figuranormal{27_laravel_migraciones_seeders_ok.png}
+{Migraciones y seeders ejecutados en Oracle desde Laravel.}
+{fig:laravel-migraciones}
+
+\figuranormal{28_laravel_usuarios_rutas.png}
+{Usuarios de prueba generados por seeders y revisión de credenciales.}
+{fig:laravel-usuarios}
+
+\subsection{Aplicación web funcionando}
+
+Después de levantar el servidor local con \path{php artisan serve}, se verificó la pantalla pública, el inicio de sesión, el panel principal y el módulo de pacientes. Estas evidencias muestran que el Laravel funciona como sistema web independiente.
+
+\figuranormal{29_laravel_pantalla_inicio_login.png}
+{Pantalla pública e ingreso al sistema Laravel.}
+{fig:laravel-login}
+
+\figuranormal{30_laravel_dashboard_funcionando.png}
+{Panel principal del sistema Laravel funcionando.}
+{fig:laravel-dashboard}
+
+\figuranormal{31_laravel_modulo_datos_seeders.png}
+{Módulo de pacientes con datos cargados desde seeders.}
+{fig:laravel-pacientes}
+
+\subsection{Resultado}
+
+La ejecución del Laravel confirma que existe una aplicación funcional relacionada con el dominio odontológico. Sin embargo, el objetivo principal de este informe sigue siendo el diseño, transformación, implementación y validación de la base de datos Oracle 19c desarrollada para el examen. El Laravel se documenta como referencia externa, evidencia complementaria y punto de comparación frente al diseño independiente realizado en \texttt{FARMACIAS\_BD3}.
