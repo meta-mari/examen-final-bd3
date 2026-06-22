@@ -27,3 +27,6 @@ Thumbs.db
 # Temporales
 *.tmp
 *.bak
+
+# Repositorio Laravel de referencia clonado localmente
+/11_laravel_referencia/sistema-odontologico/
