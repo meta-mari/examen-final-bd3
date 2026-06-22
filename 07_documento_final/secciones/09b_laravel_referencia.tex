@@ -1,14 +1,14 @@
 \section{Ejecución del sistema Laravel de referencia}
 
-Además de la tesis base y del repositorio académico de Calvo y Cobos, se clonó y ejecutó el repositorio Laravel del sistema odontológico LALYSDENT. Esta ejecución se realizó como referencia funcional del dominio, no como reemplazo del diseño de base de datos desarrollado en este examen.
+Además de la tesis base y del repositorio académico de Calvo y Cobos, se clonó y ejecutó el repositorio Laravel propio del sistema odontológico LALYSDENT. Esta ejecución se realizó como verificación funcional de la aplicación web desarrollada por el equipo, no como reemplazo del diseño de base de datos desarrollado en este examen.
 
-Se consideraron dos direcciones externas. La primera corresponde al repositorio académico de la tesis base, disponible en \url{https://calvocobos.github.io/}. La segunda corresponde al repositorio técnico Laravel clonado y ejecutado localmente, disponible en \url{https://github.com/AlanDevPro/sistema-odontologico} \parencite{calvocobos2025web,sistemaodontologicogithub}.
+Se consideraron dos direcciones externas. La primera corresponde al repositorio académico de la tesis base, disponible en \url{https://calvocobos.github.io/}. La segunda corresponde al repositorio Laravel del proyecto, clonado y ejecutado localmente, disponible en \url{https://github.com/AlanDevPro/sistema-odontologico} \parencite{calvocobos2025web,sistemaodontologicogithub}.
 
 \subsection{Relación con la tesis base}
 
-La tesis base documenta un sistema de información web para la administración de procesos de registro, atención, inventario y finanzas del consultorio odontológico LALYSDENT. El repositorio Laravel revisado permite complementar esa documentación con una aplicación funcional relacionada con el mismo dominio.
+La tesis base documenta un sistema de información web para la administración de procesos de registro, atención, inventario y finanzas del consultorio odontológico LALYSDENT. El repositorio Laravel del equipo permite complementar esa documentación con una aplicación funcional relacionada con el mismo dominio.
 
-Sin embargo, el alcance del presente examen no consiste en modificar la aplicación Laravel ni en adaptar su código al schema construido en este trabajo. El Laravel se ejecutó para verificar el sistema de referencia y para fortalecer la comparación técnica entre el enfoque de aplicación web y el diseño de base de datos realizado en Oracle 19c.
+Sin embargo, el alcance del presente examen no consiste en reemplazar el objetivo del examen por la aplicación Laravel ni en adaptar su código al schema construido en este trabajo. El Laravel se ejecutó para verificar la aplicación web del proyecto y para fortalecer la comparación técnica entre el enfoque de aplicación web y el diseño de base de datos realizado en Oracle 19c.
 
 \subsection{Separación entre schemas Oracle}
 
@@ -28,7 +28,7 @@ Para evitar mezclar responsabilidades, se usaron dos schemas distintos en Oracle
 \end{tabularx}
 \end{table}
 
-Esta separación es importante porque el sistema Laravel ya posee su propia estructura de base de datos, sus migraciones y su lógica de aplicación. Por ello, no fue necesario conectarlo al schema \texttt{FARMACIAS\_BD3}.
+Esta separación es importante porque la aplicación Laravel ya posee su propia estructura de base de datos, sus migraciones y su lógica de aplicación. Por ello, no fue necesario conectarlo al schema \texttt{FARMACIAS\_BD3}.
 
 \subsection{Entorno técnico verificado}
 
@@ -88,4 +88,4 @@ Después de levantar el servidor local con \path{php artisan serve}, se verific�
 
 \subsection{Resultado}
 
-La ejecución del Laravel confirma que existe una aplicación funcional relacionada con el dominio odontológico. Sin embargo, el objetivo principal de este informe sigue siendo el diseño, transformación, implementación y validación de la base de datos Oracle 19c desarrollada para el examen. El Laravel se documenta como referencia externa, evidencia complementaria y punto de comparación frente al diseño independiente realizado en \texttt{FARMACIAS\_BD3}.
+La ejecución del Laravel confirma que la aplicación Laravel del proyecto funciona correctamente en el dominio odontológico. Sin embargo, el objetivo principal de este informe sigue siendo el diseño, transformación, implementación y validación de la base de datos Oracle 19c desarrollada para el examen. El Laravel se documenta como implementación web propia, evidencia funcional complementaria y punto de comparación frente al diseño independiente realizado en \texttt{FARMACIAS\_BD3}.

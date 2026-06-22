@@ -2,7 +2,7 @@
 
 ## Propósito
 
-Se clonó y ejecutó el repositorio externo `AlanDevPro/sistema-odontologico` como referencia funcional del sistema odontológico LALYSDENT. Esta ejecución complementa la tesis base y permite observar una aplicación web real relacionada con el dominio odontológico.
+Se clonó y ejecutó el repositorio Laravel del equipo `AlanDevPro/sistema-odontologico` como implementación funcional del sistema del sistema odontológico LALYSDENT. Esta ejecución complementa la tesis base y corresponde a la implementación web propia del sistema y permite observar una aplicación web real relacionada con el dominio odontológico.
 
 La base de datos principal del examen se mantiene en el schema `FARMACIAS_BD3`. El Laravel clonado se ejecutó con un schema separado llamado `LALYSDENT_APP`, para evitar mezclar la implementación académica diseñada en Oracle 19c con la base usada por la aplicación Laravel.
 
@@ -13,13 +13,13 @@ Se usaron dos direcciones externas:
 | Repositorio o sitio | Dirección | Uso en el informe |
 |---|---|---|
 | Repositorio académico de tesis Calvo & Cobos | `https://calvocobos.github.io/` | Fuente documental de la tesis base y del contexto LALYSDENT. |
-| Repositorio Laravel LALYSDENT | `https://github.com/AlanDevPro/sistema-odontologico` | Fuente técnica usada para clonar, ejecutar y verificar una aplicación Laravel funcional. |
+| Repositorio Laravel del proyecto LALYSDENT | `https://github.com/AlanDevPro/sistema-odontologico` | Repositorio propio del proyecto usado para ejecutar y verificar la aplicación Laravel funcional. |
 
 ## Separación de alcance
 
 El sistema Laravel funciona con su propia base de datos Oracle mediante migraciones y seeders. No se conectó con el schema `FARMACIAS_BD3`, porque la base de datos diseñada en el examen es el producto principal.
 
-Por tanto, la ejecución Laravel se interpreta como evidencia complementaria y no como sustitución del diseño físico desarrollado en el examen.
+Por tanto, la ejecución Laravel se interpreta como evidencia funcional complementaria y no como sustitución del diseño físico desarrollado en el examen.
 
 ## Entorno verificado
 
